@@ -66,58 +66,60 @@ class MainActivity : ComponentActivity() {
                                         BadgedBox(
                                             badge = {
                                                 if (bottomNavItem.badges != 0) {
-                                                    Badge {
+                                                    Badge (
+
+                                                        containerColor = when (bottomNavItem.title) {
+                                                            "Home" -> androidx.compose.ui.graphics.Color.Gray
+                                                            "Contacts" -> androidx.compose.ui.graphics.Color(0xFF5D8AA8)  // Airforce Blue (RAF)
+                                                            "Chats" -> androidx.compose.ui.graphics.Color(0xFF50C878)  // Emerald Green
+                                                            "Memories" -> androidx.compose.ui.graphics.Color(0xFFFF7518)  // Pumpkin
+                                                            else -> androidx.compose.ui.graphics.Color.Transparent
+                                                        }
+
+                                                    ) {
                                                         Text(
-                                                            text = bottomNavItem.badges.toString()
+                                                            text = bottomNavItem.badges.toString(),
+                                                            color = androidx.compose.ui.graphics.Color.White // Optional: make text white for better contrast
                                                         )
                                                     }
-                                                } else if (
-                                                    bottomNavItem.hasNews) {
-                                                    Badge()
+                                                } else if (bottomNavItem.hasNews) {
+                                                    Badge(
+
+                                                        containerColor = when (bottomNavItem.title) {
+                                                            "Home" -> androidx.compose.ui.graphics.Color.Gray
+                                                            "Contacts" -> androidx.compose.ui.graphics.Color(0xFF5D8AA8)  // Airforce Blue (RAF)
+                                                            "Chats" -> androidx.compose.ui.graphics.Color(0xFF50C878)  // Emerald Green
+                                                            "Memories" -> androidx.compose.ui.graphics.Color(0xFFFF7518)  // Pumpkin
+                                                            else -> androidx.compose.ui.graphics.Color.Transparent
+                                                        }
+                                                    )
                                                 }
                                             }
                                         ) {
-
-                                            // Set background color based on the selected icon
-                                            val backgroundColor = when (bottomNavItem.title) {
-                                                "Home" -> if (index == francy) androidx.compose.ui.graphics.Color.Gray else androidx.compose.ui.graphics.Color.Transparent
-                                                "Contacts" -> if (index == francy) androidx.compose.ui.graphics.Color(0xFF5D8AA8) else androidx.compose.ui.graphics.Color.Transparent  // Airforce Blue (RAF)
-                                                "Chats" -> if (index == francy) androidx.compose.ui.graphics.Color(0xFF50C878) else androidx.compose.ui.graphics.Color.Transparent  // Emerald Green
-                                                "Memories" -> if (index == francy) androidx.compose.ui.graphics.Color(0xFFFF7518) else androidx.compose.ui.graphics.Color.Transparent  // Pumpkin
-                                                else -> androidx.compose.ui.graphics.Color.Transparent
-                                            }
-
-                                            Box (
-
-                                                modifier = Modifier
-                                                    .size(48.dp)  // Adjust the size of the icon's container
-                                                    .background(color = backgroundColor, shape = androidx.compose.foundation.shape.CircleShape)  // Set background color with circular shape
-                                                    .padding(8.dp)  // Add padding to make sure the icon isn't too close to the background edge
-
-                                            ) {
-
-                                                Image(
-                                                    painter = if (index == francy) painterResource(id = bottomNavItem.selectedIcon)
-                                                    else {
-                                                        painterResource(id = bottomNavItem.unselectedIcon)
-                                                    },
-                                                    contentDescription = bottomNavItem.title,
-                                                    modifier = Modifier.size(45.dp)  // Adjust icon size
-                                                )
-
-                                            }
-
+                                            Image(
+                                                painter = if (index == francy) painterResource(id = bottomNavItem.selectedIcon)
+                                                else {
+                                                    painterResource(id = bottomNavItem.unselectedIcon)
+                                                },
+                                                contentDescription = bottomNavItem.title,
+                                                modifier = Modifier.size(24.dp)  // Taille de l'icône
+                                            )
                                         }
                                     },
                                     label = {
                                         Text(text = bottomNavItem.title)
                                     },
-
                                     colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                                        indicatorColor = androidx.compose.ui.graphics.Color.Transparent // C'est ici que la couleur par défaut est supprimée
+                                        indicatorColor = when (bottomNavItem.title) {
+                                            "Home" -> androidx.compose.ui.graphics.Color.Gray
+                                            "Contacts" -> androidx.compose.ui.graphics.Color(0xFF5D8AA8)  // Airforce Blue (RAF)
+                                            "Chats" -> androidx.compose.ui.graphics.Color(0xFF50C878)  // Emerald Green
+                                            "Memories" -> androidx.compose.ui.graphics.Color(0xFFFF7518)  // Pumpkin
+                                            else -> androidx.compose.ui.graphics.Color.Transparent
+                                        }
                                     )
-
                                 )
+
                             }
                         }
                     },
@@ -157,7 +159,7 @@ val bottomNavItems = listOf(
         selectedIcon = R.drawable.contact4 ,
         unselectedIcon = R.drawable.contact4,
         hasNews = false,
-        badges = 0
+        badges = 3
     ),
     BottomNavItem(
 
