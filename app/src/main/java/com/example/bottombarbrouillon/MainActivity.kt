@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -76,23 +78,44 @@ class MainActivity : ComponentActivity() {
                                             }
                                         ) {
 
-                                            Image(
-                                                painter = if (index == francy) painterResource(id = bottomNavItem.selectedIcon)
-                                                    else {
-                                                    painterResource(id = bottomNavItem.unselectedIcon)
-                                                },
+                                            // Set background color based on the selected icon
+                                            val backgroundColor = when (bottomNavItem.title) {
+                                                "Home" -> if (index == francy) androidx.compose.ui.graphics.Color.Gray else androidx.compose.ui.graphics.Color.Transparent
+                                                "Contacts" -> if (index == francy) androidx.compose.ui.graphics.Color(0xFF5D8AA8) else androidx.compose.ui.graphics.Color.Transparent  // Airforce Blue (RAF)
+                                                "Chats" -> if (index == francy) androidx.compose.ui.graphics.Color(0xFF50C878) else androidx.compose.ui.graphics.Color.Transparent  // Emerald Green
+                                                "Memories" -> if (index == francy) androidx.compose.ui.graphics.Color(0xFFFF7518) else androidx.compose.ui.graphics.Color.Transparent  // Pumpkin
+                                                else -> androidx.compose.ui.graphics.Color.Transparent
+                                            }
 
-                                                contentDescription = bottomNavItem.title,
+                                            Box (
+
                                                 modifier = Modifier
-                                                    .size(45.dp)  // Adjust icon size here
-                                                    .padding(8.dp)  // Adjust padding between icons here
+                                                    .size(48.dp)  // Adjust the size of the icon's container
+                                                    .background(color = backgroundColor, shape = androidx.compose.foundation.shape.CircleShape)  // Set background color with circular shape
+                                                    .padding(8.dp)  // Add padding to make sure the icon isn't too close to the background edge
 
-                                            )
+                                            ) {
+
+                                                Image(
+                                                    painter = if (index == francy) painterResource(id = bottomNavItem.selectedIcon)
+                                                    else {
+                                                        painterResource(id = bottomNavItem.unselectedIcon)
+                                                    },
+                                                    contentDescription = bottomNavItem.title,
+                                                    modifier = Modifier.size(45.dp)  // Adjust icon size
+                                                )
+
+                                            }
+
                                         }
                                     },
                                     label = {
                                         Text(text = bottomNavItem.title)
-                                    }
+                                    },
+
+                                    colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
+                                        indicatorColor = androidx.compose.ui.graphics.Color.Transparent // C'est ici que la couleur par défaut est supprimée
+                                    )
 
                                 )
                             }
