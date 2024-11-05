@@ -66,4 +66,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    val nav_version = "2.8.2"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    implementation ("com.google.accompanist:accompanist-pager:0.30.1")  // Add latest version
+    implementation ("com.google.accompanist:accompanist-pager:0.30.1")
+
+
+
 }
